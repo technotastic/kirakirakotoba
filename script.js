@@ -300,50 +300,64 @@ document.addEventListener('DOMContentLoaded', () => {
     function loadQuestion() {
         feedbackEl.textContent = '';
         feedbackEl.className = 'feedback-hidden'; // Hide feedback visually
+
+        // === FIX: Ensure focus is removed from any button first ===
+        try { // Use try/catch in case activeElement isn't focusable
+           if (document.activeElement && choicesContainer.contains(document.activeElement)) {
+                 document.activeElement.blur();
+           }
+        } catch(e) { /* ignore */ }
+        // =======================================================
+
         choicesContainer.innerHTML = ''; // Clear old choices
 
-        // 1. Filter scenes by difficulty
-        const availableScenes = scenesData.filter(scene => scene.difficulty === currentDifficulty);
-        if (availableScenes.length === 0) {
-            sceneDescriptionEl.textContent = `No scenes found for ${currentDifficulty} level! Try adding more or choosing another difficulty.`;
-            return;
-        }
+        // === FIX: Delay button creation slightly using requestAnimationFrame ===
+        requestAnimationFrame(() => {
+            // 1. Filter scenes by difficulty (moved inside)
+            const availableScenes = scenesData.filter(scene => scene.difficulty === currentDifficulty);
+            if (availableScenes.length === 0) {
+                sceneDescriptionEl.textContent = `No scenes found for ${currentDifficulty} level! Try adding more or choosing another difficulty.`;
+                return;
+            }
 
-        // 2. Pick a random scene
-        currentScene = availableScenes[Math.floor(Math.random() * availableScenes.length)];
-        sceneDescriptionEl.textContent = currentScene.description;
+            // 2. Pick a random scene (moved inside)
+            currentScene = availableScenes[Math.floor(Math.random() * availableScenes.length)];
+            sceneDescriptionEl.textContent = currentScene.description;
 
-        // 3. Get the correct answer word
-        const correctAnswer = currentScene.match;
+            // 3. Get the correct answer word (moved inside)
+            const correctAnswer = currentScene.match;
 
-        // 4. Get incorrect choices (filter by difficulty, exclude correct answer)
-        const potentialWrongAnswers = onomatopoeiaData.filter(item =>
-            item.difficulty === currentDifficulty && item.word !== correctAnswer
-        );
+            // 4. Get incorrect choices (moved inside)
+            const potentialWrongAnswers = onomatopoeiaData.filter(item =>
+                item.difficulty === currentDifficulty && item.word !== correctAnswer
+            );
+            const numChoices = 4;
+            let neededWrongAnswers = numChoices - 1;
+            if (potentialWrongAnswers.length < neededWrongAnswers) {
+                console.warn(`Warning: Not enough unique wrong answers for difficulty ${currentDifficulty}.`);
+                neededWrongAnswers = potentialWrongAnswers.length;
+            }
+            const wrongAnswers = getRandomElements(potentialWrongAnswers, neededWrongAnswers);
+            const wrongAnswerWords = wrongAnswers.map(item => item.word);
 
-        const numChoices = 4; // How many options to show (including correct)
-        const neededWrongAnswers = numChoices - 1;
+            // 5. Combine correct and incorrect, then shuffle (moved inside)
+            currentChoices = [correctAnswer, ...wrongAnswerWords];
+            shuffle(currentChoices);
 
-        if (potentialWrongAnswers.length < neededWrongAnswers) {
-             console.warn(`Warning: Not enough unique wrong answers for difficulty ${currentDifficulty}. Some repetition might occur or fewer choices shown.`);
-             // Adjust needed wrong answers if pool is too small
-             neededWrongAnswers = potentialWrongAnswers.length;
-        }
+            // 6. Create buttons for choices (moved inside)
+            currentChoices.forEach(choiceWord => {
+                const button = document.createElement('button');
+                button.textContent = choiceWord;
+                 // IMPORTANT: Ensure no lingering selection classes from previous runs
+                 button.classList.remove('selected-choice');
+                button.addEventListener('click', () => handleAnswer(choiceWord));
+                choicesContainer.appendChild(button);
+            });
+             // Ensure buttons are immediately focusable/enabled if needed
+             // (They should be by default after creation)
 
-        const wrongAnswers = getRandomElements(potentialWrongAnswers, neededWrongAnswers);
-        const wrongAnswerWords = wrongAnswers.map(item => item.word);
-
-        // 5. Combine correct and incorrect, then shuffle
-        currentChoices = [correctAnswer, ...wrongAnswerWords];
-        shuffle(currentChoices);
-
-        // 6. Create buttons for choices
-        currentChoices.forEach(choiceWord => {
-            const button = document.createElement('button');
-            button.textContent = choiceWord;
-            button.addEventListener('click', () => handleAnswer(choiceWord));
-            choicesContainer.appendChild(button);
-        });
+        }); // End of requestAnimationFrame callback
+        // ===============================================================
     }
 
     // Handle user's answer selection
