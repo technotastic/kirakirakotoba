@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>キラキラ言葉 KiraKira Kotoba</title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Gaegu:wght@300;400;700&family=Potta+One&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    </head>
+<body>
+    <header class="header-sparkle">
+        <h1>キラキラ言葉<br>KiraKira Kotoba<h1>
+        <h2>擬音語・擬態語 Scene Matcher</h2>
+    </header>
+
+    <main id="app-container">
+        <div id="settings">
+            <fieldset>
+                <legend>Select Difficulty:</legend>
+                <label>
+                    <input type="radio" name="difficulty" value="easy" checked> 🌱 Easy Peasy
+                </label>
+                <label>
+                    <input type="radio" name="difficulty" value="medium"> 🤔 Medium Meow
+                </label>
+                <label>
+                    <input type="radio" name="difficulty" value="hard"> 🔥 Hard Hiss
+                </label>
+            </fieldset>
+            <button id="start-button">Start New Game!</button>
+        </div>
+
+        <div id="game-area" class="hidden">
+            <div id="scene-card">
+                <p id="scene-description">Loading scene...</p>
+            </div>
+
+            <div id="choices-container">
+                <!-- Buttons will be added by JavaScript -->
+            </div>
+
+            <div id="feedback" class="feedback-hidden">
+                <!-- Feedback message -->
+            </div>
+        </div>
+
+        <div id="score-area">
+            <h3>Your Progress:</h3>
+            <p><strong>Easy:</strong> <span id="score-easy">0</span> Correct / <span id="attempts-easy">0</span> Attempts</p>
+            <p><strong>Medium:</strong> <span id="score-medium">0</span> Correct / <span id="attempts-medium">0</span> Attempts</p>
+            <p><strong>Hard:</strong> <span id="score-hard">0</span> Correct / <span id="attempts-hard">0</span> Attempts</p>
+            <button id="reset-scores">Reset All Scores</button>
+        </div>
+
+    </main>
+
+    <footer>
+        <p>Crafted with weirdness for learning!</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

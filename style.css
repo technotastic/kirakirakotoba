@@ -1,0 +1,311 @@
+/* --- FONTS --- */
+/* Imported via <link> in HTML: Bangers, Gaegu, Potta One, Noto Sans JP */
+
+body {
+    background-color: #FFEF00; /* Bright Yellow! */
+    color: #4B0082; /* Indigo */
+    font-family: 'Gaegu', cursive; /* Base fun font for general text */
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    line-height: 1.6;
+    overflow-x: hidden; /* Prevent weird horizontal scroll */
+}
+
+header {
+    text-align: center;
+    padding: 20px 10px;
+    background: linear-gradient(45deg, #FF69B4, #FFA500); /* Pink to Orange gradient */
+    color: white;
+    text-shadow: 2px 2px 4px #00000080;
+    border-bottom: 5px dashed #4B0082; /* Dashed indigo border */
+    position: relative;
+}
+
+/* === Sparkle Effect for Header (Unique Idea 1) === */
+@keyframes sparkle {
+    0% { text-shadow: 2px 2px 4px #00000080, 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #ff69b4; }
+    50% { text-shadow: 2px 2px 4px #00000080, 0 0 15px #fff, 0 0 25px #ff69b4, 0 0 30px #ffa500; }
+    100% { text-shadow: 2px 2px 4px #00000080, 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #ff69b4; }
+}
+
+.header-sparkle h1 {
+    animation: sparkle 3s infinite;
+}
+/* ============================================= */
+
+/* Main Title uses Bangers */
+h1 {
+    font-family: 'Bangers', cursive;
+    font-size: 4em;
+    margin: 0;
+    letter-spacing: 3px;
+}
+
+/* Subtitle - Switched to Noto Sans JP */
+h2 {
+    font-family: 'Noto Sans JP', sans-serif; /* << READABLE JAPANESE FONT */
+    font-size: 1.6em; /* Adjusted size */
+    font-weight: 700; /* Bold for clarity */
+    margin: 0;
+    color: #FFFFE0; /* Light yellow for subtitle */
+}
+
+main {
+    flex: 1; /* Takes up remaining vertical space */
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 15px;
+    background-color: rgba(255, 255, 255, 0.5); /* Slightly transparent white */
+    border-radius: 15px;
+    box-shadow: 0 0 25px 10px rgba(75, 0, 130, 0.3); /* Indigo glow */
+}
+
+#settings, #score-area {
+    background-color: #AFEEEE; /* Pale Turquoise */
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    border: 3px dotted #FF69B4; /* Dotted pink border */
+    text-align: center;
+}
+
+fieldset {
+    border: none;
+    padding: 0;
+    margin-bottom: 10px;
+}
+
+/* Legend keeps Potta One */
+legend {
+    font-family: 'Potta One', cursive;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: #4B0082;
+}
+
+/* Settings labels keep Gaegu (from body) */
+#settings label {
+    margin-right: 15px;
+    cursor: pointer;
+    font-size: 1.1em;
+     /* Inherits Gaegu from body */
+}
+
+input[type="radio"] {
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+/* === Weird Button Style (Unique Idea 2) === */
+/* Applies generally to ALL buttons first */
+button {
+    font-family: 'Potta One', cursive; /* Default fun font for buttons */
+    background-color: #00CED1; /* Dark Turquoise */
+    color: white;
+    border: 3px solid #FF69B4; /* Hot Pink border */
+    padding: 10px 20px;
+    border-radius: 20px 5px 20px 5px; /* Asymmetric radius */
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+    margin-top: 10px; /* Add space */
+}
+
+button:hover {
+    background-color: #FF69B4; /* Hot Pink */
+    color: #FFFFE0; /* Light yellow text */
+    border-color: #00CED1; /* Dark Turquoise border */
+    transform: rotate(-2deg) scale(1.05); /* Tilt and grow! */
+    box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.4);
+}
+
+button:active {
+    transform: rotate(2deg) scale(0.98); /* Tilt other way, slightly shrink */
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+/* Start/Reset buttons keep the default Potta One button font */
+#start-button, #reset-scores {
+    /* No font override needed, inherits from general button style */
+}
+/* ======================================== */
+
+#game-area {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #FFFFE0; /* Light Yellow game area */
+    border-radius: 10px;
+    border: 4px ridge #FFA500; /* Orange ridge border */
+    min-height: 200px; /* Ensure space */
+    display: flex; /* Using flex for layout */
+    flex-direction: column;
+    align-items: center;
+}
+
+#scene-card {
+    background: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+    width: 90%;
+    box-shadow: inset 0 0 10px rgba(75, 0, 130, 0.2); /* Inner indigo shadow */
+}
+
+/* Scene Description uses Noto Sans JP */
+#scene-description {
+    font-family: 'Noto Sans JP', sans-serif; /* << READABLE JAPANESE FONT */
+    font-size: 1.6em; /* Adjusted size */
+    line-height: 1.7; /* Adjusted line height */
+    font-weight: 400; /* Standard weight */
+}
+
+#choices-container {
+    display: flex;
+    flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+    justify-content: center;
+    gap: 15px; /* Space between buttons */
+    margin-bottom: 20px;
+}
+
+/* Onomatopoeia Choice Buttons Override Font */
+#choices-container button {
+    font-family: 'Noto Sans JP', sans-serif; /* << READABLE JAPANESE FONT */
+    font-size: 1.5em; /* Adjusted size */
+    font-weight: 700; /* Bold Katakana */
+    min-width: 120px; /* Give buttons some minimum width */
+    padding: 12px 18px;
+    /* Inherits border, radius, color, effects from general button style */
+}
+
+/* Feedback uses Noto Sans JP */
+#feedback {
+    font-family: 'Noto Sans JP', sans-serif; /* << READABLE JAPANESE FONT */
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1.3em; /* Adjusted size */
+    font-weight: 400; /* Standard weight */
+    width: 80%;
+    transition: all 0.5s ease-in-out;
+    transform: scale(0); /* Hidden by default */
+    opacity: 0;
+    margin-top: 10px;
+}
+
+#feedback.feedback-show {
+    transform: scale(1); /* Scale up to show */
+    opacity: 1;
+}
+
+#feedback.feedback-correct {
+    background-color: #90EE90; /* Light Green */
+    color: #006400; /* Dark Green */
+    border: 3px solid #006400;
+    box-shadow: 0 0 15px #90EE90;
+}
+
+#feedback.feedback-incorrect {
+    background-color: #FFB6C1; /* Light Pink */
+    color: #8B0000; /* Dark Red */
+    border: 3px solid #8B0000;
+    box-shadow: 0 0 15px #FFB6C1;
+}
+/* ===================================== */
+
+/* Score area text keeps Gaegu (from body) */
+#score-area p {
+     /* Inherits Gaegu from body */
+     font-size: 1.1em; /* Make score text slightly larger */
+}
+
+#score-area span {
+    font-weight: 700; /* Make numbers bold */
+    display: inline-block; /* Prevent weird wrapping */
+    min-width: 30px; /* Give numbers some space */
+    text-align: right; /* Align numbers */
+}
+
+.hidden {
+    display: none;
+}
+
+/* Footer text keeps Gaegu (from body) */
+footer {
+    text-align: center;
+    margin-top: 30px;
+    padding: 15px;
+    font-size: 0.9em;
+    color: #8B4513; /* Saddle Brown */
+     /* Inherits Gaegu from body */
+}
+
+/* Responsive tweaks */
+@media (max-width: 600px) {
+    h1 { font-size: 2.5em; } /* Slightly smaller title */
+    h2 { font-size: 1.2em; }
+
+    main {
+        margin: 10px;
+        padding: 10px;
+        /* Allow main to shrink if needed, prevent stretching too much */
+        /* Consider if overflow-y needs to be auto here if content is STILL too long */
+    }
+
+    #settings label {
+        display: block; /* Keep stacking options */
+        margin-bottom: 10px;
+    }
+
+    /* --- KEY CHANGES FOR GAME AREA LAYOUT --- */
+
+    #game-area {
+        padding: 15px; /* Slightly less padding */
+    }
+
+    #scene-card {
+         width: 95%; /* Make scene card slightly wider */
+         margin-bottom: 15px; /* Reduced space below scene */
+    }
+
+    #scene-description {
+        font-size: 1.3em; /* Slightly smaller text for scene on mobile */
+    }
+
+    #choices-container {
+        /* REMOVE flex-direction: column; */
+        /* Keep default row direction with wrapping */
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px; /* Slightly smaller gap */
+        margin-bottom: 15px; /* Reduced space below buttons */
+    }
+
+    #choices-container button {
+        /* Instead of a fixed %, let buttons size somewhat naturally but limit width */
+        flex-grow: 1; /* Allow buttons to grow if space */
+        flex-basis: 40%; /* Suggest starting basis - allows ~2 buttons per row */
+        /* max-width: 180px; */ /* Optional: uncomment to cap max button width */
+        font-size: 1.3em; /* Slightly smaller button text on mobile */
+        /* width: 80%; */ /* REMOVE this fixed width */
+    }
+
+     /* --- END KEY CHANGES --- */
+
+    #feedback {
+        width: 90%;
+        font-size: 1.1em; /* Smaller feedback text */
+    }
+
+    #score-area p {
+        font-size: 1em; /* Slightly smaller score text */
+    }
+
+    #score-area span {
+        min-width: 25px; /* Adjust number width if needed */
+    }
+}
