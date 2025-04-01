@@ -348,9 +348,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Handle user's answer selection
     function handleAnswer(selectedWord) {
-        // Disable buttons temporarily
         const buttons = choicesContainer.querySelectorAll('button');
-        buttons.forEach(button => button.disabled = true);
+
+        // === MODIFICATION START ===
+        // Disable all buttons, but mark the selected one
+        buttons.forEach(button => {
+            button.disabled = true; // Disable all buttons
+            if (button.textContent === selectedWord) {
+                button.classList.add('selected-choice'); // Add class to the clicked button
+            }
+        });
+        // === MODIFICATION END ===
+
 
         const correct = selectedWord === currentScene.match;
         const feedbackMsg = document.createElement('p'); // Use paragraph for better structure
@@ -367,6 +376,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const correctMeaning = onomatopoeiaData.find(o => o.word === correctWord)?.meanings.join(', ') || 'Correct meaning';
             feedbackMsg.innerHTML = `❌ Not quite! The answer was 「${correctWord}」 (Meaning: <em>${correctMeaning}</em>)`;
             feedbackEl.className = 'feedback-incorrect feedback-show';
+            // Optional: You could add another class to the correct button if the user was wrong
+            buttons.forEach(button => {
+                if(button.textContent === correctWord) {
+                    // button.classList.add('correct-answer-highlight'); // Add styling for this in CSS if desired
+                }
+            });
         }
         feedbackEl.innerHTML = ''; // Clear previous content
         feedbackEl.appendChild(feedbackMsg);
@@ -375,8 +390,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Load next question after a delay
         setTimeout(() => {
+            // No need to explicitly remove 'selected-choice' class here
+            // because loadQuestion clears and recreates all buttons.
             loadQuestion();
-             // Re-enable buttons by reloading them in loadQuestion
         }, 2500); // 2.5 second delay
     }
 

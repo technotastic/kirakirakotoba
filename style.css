@@ -322,4 +322,85 @@ footer {
     opacity: 0.6;              /* Make them look faded */
      /* We DON'T change the font-family here */
 }
+
+/* --- Style for UNSELECTED Buttons While Disabled During Feedback --- */
+/* Make this slightly more specific or ensure it comes before the selected style */
+#choices-container button:disabled:not(.selected-choice) { /* Apply only if NOT selected */
+    background-color: #cccccc; /* Neutral grey background */
+    color: #666666;           /* Darker grey text */
+    border-color: #aaaaaa;     /* Grey border */
+    cursor: not-allowed;       /* Show disabled cursor */
+    /* Override interactive styles */
+    transform: none !important; /* Prevent any leftover rotation/scale */
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Minimal shadow */
+    opacity: 0.5;              /* Make them look faded */
+     /* Font-family is NOT changed */
+}
+
+/* --- Style for the SELECTED Button While Disabled During Feedback --- */
+#choices-container button.selected-choice:disabled {
+    /* Keep closer to original, but clearly non-interactive */
+    opacity: 0.9; /* Slightly faded, but less than others */
+    cursor: not-allowed;
+    /* Maybe a slightly stronger border or outline */
+    border-width: 4px; /* Make border slightly thicker */
+    /* Keep original background/color from the main button style */
+    /* background-color: KEEP; */
+    /* color: KEEP; */
+    /* border-color: KEEP; */
+
+    /* Ensure no interactive transforms apply */
+    transform: none !important;
+    /* Adjust shadow if desired, maybe slightly reduced */
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.25);
+
+    /* If you added 'correct-answer-highlight' above, style it too */
+    /* &.correct-answer-highlight { border-color: limegreen; } */
+}
+/* ================================================================== */
+
+/* --- General Button Styles (Ensure these are defined earlier) --- */
+button {
+    /* ... keep original styles like font-family, border-radius, padding etc. ... */
+    font-family: 'Potta One', cursive;
+    background-color: #00CED1;
+    color: white;
+    border: 3px solid #FF69B4;
+    padding: 10px 20px;
+    border-radius: 20px 5px 20px 5px;
+    /* ...etc */
+}
+#choices-container button {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 1.5em;
+    font-weight: 700;
+     /* ... other choice-button specific overrides */
+}
+/* --- End General Styles --- */
+
+/* Add hover/active styles as before */
+button:hover {
+     /* ... hover styles ... */
+}
+button:active {
+    /* ... active styles ... */
+}
+
+/* --- Ensure hover/active DON'T apply when disabled --- */
+#choices-container button:disabled:not(.selected-choice):hover,
+#choices-container button.selected-choice:disabled:hover {
+    /* Explicitly prevent hover effects when disabled */
+    background-color: #cccccc; /* Re-assert grey for unselected */
+    border-color: #aaaaaa;
+    transform: none !important;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+/* Style for selected disabled button on hover (keep its selected look) */
+#choices-container button.selected-choice:disabled:hover {
+     background-color: #00CED1; /* Or whatever its base background is */
+     border-color: #FF69B4; /* Base border color */
+     border-width: 4px;
+     box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.25);
+     /* NO transform */
+}
 /* ====================================================== */
